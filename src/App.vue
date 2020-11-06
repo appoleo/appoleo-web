@@ -12,7 +12,8 @@ export default {
 </script>
 
 <style>
-#app {
+#app,img {
   height: 100%;
+  width: 100%;
 }
 </style>
