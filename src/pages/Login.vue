@@ -6,7 +6,7 @@
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
         </el-form-item>
         <el-form-item class="btns">
@@ -24,37 +24,42 @@ export default {
     return {
       // 登录表单数据对象
       loginForm: {
-        username: "",
-        password: ""
+        username: 'amin',
+        password: '123456'
       },
       // 登录表单校验规则
       loginFormRules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在3-10个字符之间", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在3-10个字符之间', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 6, max: 15, message: "长度在6-15个字符之间", trigger: "blur" }
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在6-15个字符之间', trigger: 'blur' }
         ]
       }
-    };
+    }
   },
   methods: {
     resetLoginForm() {
-      this.$refs.loginFormRef.resetFields();
+      this.$refs.loginFormRef.resetFields()
     },
     login() {
-      this.$refs.loginFormRef.validate(valid => {
-        if (!valid) return;
-      });
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        //  await this.$http.post('login', this.loginForm);
+        this.$message.success('登陆成功')
+        window.sessionStorage.setItem('token', '99999')
+        this.$router.push('/home')
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
 .login_container {
+  background-image: url(../assets/index_o.jpg);
   height: 100%;
 }
 .login_box {

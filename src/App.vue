@@ -6,15 +6,12 @@
 
 <script>
 export default {
-  name: "App"
-};
+  name: 'App'
+}
 </script>
 
 <style>
-#app,
-img {
-  background-image: url(./assets/index_o.jpg);
-  width: 100%;
+#app {
   height: 100%;
 }
 </style>
