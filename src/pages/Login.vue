@@ -47,7 +47,7 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        //  await this.$http.post('login', this.loginForm);
+        await this.$http.post('login', this.loginForm);
         this.$message.success('登陆成功')
         window.sessionStorage.setItem('token', '99999')
         this.$router.push('/home')
