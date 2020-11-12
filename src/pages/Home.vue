@@ -13,7 +13,7 @@
         <div @click="toggleCollapse" class="toggle_button">
           <i :class="collapseIcon"></i>
         </div>
-        <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router>
+        <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
           <!-- 一级菜单 -->
           <el-submenu :index="item.id.toString()" v-for="item in menuList" :key="item.id">
             <template slot="title">
@@ -21,7 +21,7 @@
               <span>{{ item.name }}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id">
+            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveActivePath(subItem.path)">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{ subItem.name }}</span>
@@ -53,8 +53,8 @@ export default {
           name: '权限管理',
           path: '',
           children: [
-            { id: 4, name: '角色列表', path: '/1', children: [] },
-            { id: 5, name: '权限列表', path: '/2', children: [] },
+            { id: 4, name: '角色列表', path: '/rules', children: [] },
+            { id: 5, name: '权限列表', path: '/auths', children: [] },
           ],
         },
         {
@@ -62,16 +62,16 @@ export default {
           name: '商品管理',
           path: '',
           children: [
-            { id: 7, name: '商品列表', path: '/3', children: [] },
-            { id: 8, name: '分类参数', path: '/4', children: [] },
-            { id: 9, name: '商品分类', path: '/5', children: [] },
+            { id: 7, name: '商品列表', path: '/goods', children: [] },
+            { id: 8, name: '分类参数', path: '/categorys', children: [] },
+            { id: 9, name: '商品分类', path: '/goodsCategorys', children: [] },
           ],
         },
         {
           id: 10,
           name: '订单管理',
           path: '',
-          children: [{ id: 11, name: '订单列表', path: '/6', children: [] }],
+          children: [{ id: 11, name: '订单列表', path: '/orders', children: [] }],
         },
         { id: 12, name: '数据统计', path: '', children: [] },
       ],
@@ -84,11 +84,13 @@ export default {
       },
       isCollapse: false,
       collapseIcon: 'el-icon-s-fold',
+      activePath: ''
     }
   },
 
   created() {
-    this.getMenuList()
+    this.getMenuList();
+    this.activePath = window.sessionStorage.getItem("activePath");
   },
 
   methods: {
@@ -107,7 +109,11 @@ export default {
         ? 'el-icon-s-unfold'
         : 'el-icon-s-fold'
     },
-  },
+    saveActivePath(activePath) {
+      this.activePath = activePath;
+      window.sessionStorage.setItem("activePath", activePath);
+    }
+  }
 }
 </script>
 
