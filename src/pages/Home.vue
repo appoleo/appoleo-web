@@ -13,7 +13,7 @@
         <div @click="toggleCollapse" class="toggle_button">
           <i :class="collapseIcon"></i>
         </div>
-        <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router>
+        <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="navState">
           <!-- 一级菜单 -->
           <el-submenu :index="item.id.toString()" v-for="item in menuList" :key="item.id">
             <template slot="title">
@@ -21,7 +21,7 @@
               <span>{{ item.name }}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id">
+            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState(subItem.path)">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{ subItem.name }}</span>
@@ -84,11 +84,13 @@ export default {
       },
       isCollapse: false,
       collapseIcon: 'el-icon-s-fold',
+      navState: ''
     }
   },
 
   created() {
-    this.getMenuList()
+    this.getMenuList();
+    this.navState = window.sessionStorage.getItem("navState");
   },
 
   methods: {
@@ -107,7 +109,11 @@ export default {
         ? 'el-icon-s-unfold'
         : 'el-icon-s-fold'
     },
-  },
+    saveNavState(path) {
+      this.navState = path;
+      window.sessionStorage.setItem("navState", path);
+    }
+  }
 }
 </script>
 
