@@ -3,7 +3,7 @@
     <el-header>
       <div>
         <img src="" alt="" />
-        <span>管理系统</span>
+        <!-- <span>管理系统</span> -->
       </div>
       <el-button type="info" @click="logout" class="button_logout">退出</el-button>
     </el-header>
@@ -13,11 +13,7 @@
         <div @click="toggleCollapse" class="toggle_button">
           <i :class="collapseIcon"></i>
         </div>
-<<<<<<< HEAD
-        <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="navState">
-=======
         <el-menu background-color="#2B3137" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
->>>>>>> 046c7287d8660dad2cfb52e9f084bc582af05899
           <!-- 一级菜单 -->
           <el-submenu :index="item.id.toString()" v-for="item in menuList" :key="item.id">
             <template slot="title">
@@ -25,11 +21,7 @@
               <span>{{ item.name }}</span>
             </template>
             <!-- 二级菜单 -->
-<<<<<<< HEAD
-            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState(subItem.path)">
-=======
             <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveActivePath(subItem.path)">
->>>>>>> 046c7287d8660dad2cfb52e9f084bc582af05899
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{ subItem.name }}</span>
@@ -92,21 +84,14 @@ export default {
       },
       isCollapse: false,
       collapseIcon: 'el-icon-s-fold',
-<<<<<<< HEAD
-      navState: ''
-=======
       activePath: ''
->>>>>>> 046c7287d8660dad2cfb52e9f084bc582af05899
     }
   },
 
   created() {
+    // todo 获取菜单树
     this.getMenuList();
-<<<<<<< HEAD
-    this.navState = window.sessionStorage.getItem("navState");
-=======
     this.activePath = window.sessionStorage.getItem("activePath");
->>>>>>> 046c7287d8660dad2cfb52e9f084bc582af05899
   },
 
   methods: {
@@ -115,7 +100,7 @@ export default {
       this.$router.push('/login')
     },
     getMenuList() {
-      // 获取菜单树
+      // todo 获取菜单树
       // this.$http.get('menus')
     },
     // 是否收起，并切换图标
@@ -125,15 +110,9 @@ export default {
         ? 'el-icon-s-unfold'
         : 'el-icon-s-fold'
     },
-<<<<<<< HEAD
-    saveNavState(path) {
-      this.navState = path;
-      window.sessionStorage.setItem("navState", path);
-=======
     saveActivePath(activePath) {
       this.activePath = activePath;
       window.sessionStorage.setItem("activePath", activePath);
->>>>>>> 046c7287d8660dad2cfb52e9f084bc582af05899
     }
   }
 }

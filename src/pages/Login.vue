@@ -45,6 +45,7 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     login() {
+      //  todo 登录
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         // await this.$http.post('login', this.loginForm);
