@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../pages/Login.vue'
+// import Login from '../pages/Login.vue'
 import Home from '../pages/Home.vue'
 import Welcome from '../pages/Welcome.vue'
 import Users from '../pages/user/Users.vue'
@@ -17,7 +17,12 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     { path: '/', redirect: '/login' },
-    { path: '/login', component: Login },
+    {
+      path: '/login',
+      component: resolve => {
+        require(['../pages/Login.vue'], resolve)
+      }
+    },
     {
       path: '/home',
       component: Home,
