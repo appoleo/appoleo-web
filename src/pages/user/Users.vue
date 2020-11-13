@@ -16,7 +16,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary">添加用户</el-button>
+          <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
         </el-col>
       </el-row>
       <!-- 用户列表区域 -->
@@ -45,6 +45,27 @@
       <!-- 分页区域 -->
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pageCurrent" :page-sizes="[5, 10, 20, 40]" :page-size="queryInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
+      <!-- 添加对话框 -->
+      <el-dialog title="提示" :visible.sync="addDialogVisible" width="30%">
+        <el-form :model="addUserFormData" :rules="addUserFormRules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="addUserFormData.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="addUserFormData.password"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱">
+            <el-input v-model="addUserFormData.email"></el-input>
+          </el-form-item>
+          <el-form-item label="电话">
+            <el-input v-model="addUserFormData.mobile"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -77,7 +98,25 @@ export default {
         { id: 16, name: '王', email: 'appoleo@163.com', mobile: '18740394051', rule: '管理员', state: true },
         { id: 17, name: '王', email: 'appoleo@163.com', mobile: '18740394051', rule: '管理员', state: true }
       ],
-      total: 0
+      total: 0,
+      addDialogVisible: false,
+      addUserFormData: {
+        username: '',
+        password: '',
+        email: '',
+        mobile: ''
+      },
+      // 登录表单校验规则
+      addUserFormRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在3-10个字符之间', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在6-15个字符之间', trigger: 'blur' }
+        ]
+      }
     }
   },
   created() {
@@ -91,7 +130,7 @@ export default {
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize;
       this.getUserList();
-    }, 
+    },
     handleCurrentChange(newCurrent) {
       this.queryInfo.pageCurrent = newCurrent;
       this.getUserList();
