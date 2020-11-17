@@ -45,19 +45,20 @@
       <!-- 分页区域 -->
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pageCurrent" :page-sizes="[5, 10, 20, 40]" :page-size="queryInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
+
       <!-- 添加对话框 -->
-      <el-dialog title="提示" :visible.sync="addDialogVisible" width="30%">
-        <el-form :model="addUserFormData" :rules="addUserFormRules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-dialog title="提示" :visible.sync="addDialogVisible" width="30%" @close="addDialogClosed">
+        <el-form :model="addUserFormData" :rules="addUserFormRules" ref="addFormRef" label-width="70px">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="addUserFormData.username"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="addUserFormData.password"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱">
+          <el-form-item label="邮箱" prop="email">
             <el-input v-model="addUserFormData.email"></el-input>
           </el-form-item>
-          <el-form-item label="电话">
+          <el-form-item label="电话" prop="mobile">
             <el-input v-model="addUserFormData.mobile"></el-input>
           </el-form-item>
         </el-form>
@@ -138,6 +139,9 @@ export default {
     stateChanged(userInfo) {
       console.log(userInfo);
       //  todo 更新状态
+    },
+    addDialogClosed() {
+      this.$refs.addFormRef.resetFields();
     }
   }
 }
