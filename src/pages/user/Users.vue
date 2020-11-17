@@ -54,10 +54,10 @@
           <el-form-item label="密码" prop="password">
             <el-input v-model="addUserFormData.password"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱">
+          <el-form-item label="邮箱" prop="email">
             <el-input v-model="addUserFormData.email"></el-input>
           </el-form-item>
-          <el-form-item label="电话">
+          <el-form-item label="电话" prop="mobile">
             <el-input v-model="addUserFormData.mobile"></el-input>
           </el-form-item>
         </el-form>
@@ -73,6 +73,23 @@
 <script>
 export default {
   data() {
+    // 校验邮箱
+    var checkEmail = (rule, value, cb) => {
+      const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
+      if (regEmail.test(value)) {
+        return cb();
+      }
+      cb(new Error('请输入合法邮箱'));
+    }
+    // 校验手机号
+    var checkMobile = (rule, value, cb) => {
+      const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+      if(regMobile.test(value)) {
+        return cb();
+      }
+      cb(new Error('请输入合法手机号'))
+    }
+
     return {
       queryInfo: {
         query: '',
@@ -115,6 +132,14 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, max: 15, message: '长度在6-15个字符之间', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { validator: checkEmail, trigger: 'blur'}
+        ],
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur'}
         ]
       }
     }

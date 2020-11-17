@@ -24,8 +24,8 @@ export default {
     return {
       // 登录表单数据对象
       loginForm: {
-        username: 'amin',
-        password: '123456'
+        username: '',
+        password: ''
       },
       // 登录表单校验规则
       loginFormRules: {
@@ -49,9 +49,14 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         // await this.$http.post('login', this.loginForm);
-        this.$message.success('登陆成功')
-        window.sessionStorage.setItem('token', '99999')
-        this.$router.push('/home')
+        if (this.loginForm.username === 'admin' && this.loginForm.password === '123456') {
+          this.$message.success('登陆成功')
+          window.sessionStorage.setItem('token', '99999')
+          this.$router.push('/home')
+        } else {
+
+          this.$message.error('用户名或密码错误')
+        }
       })
     }
   }
