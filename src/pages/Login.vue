@@ -54,7 +54,6 @@ export default {
           window.sessionStorage.setItem('token', '99999')
           this.$router.push('/home')
         } else {
-
           this.$message.error('用户名或密码错误')
         }
       })

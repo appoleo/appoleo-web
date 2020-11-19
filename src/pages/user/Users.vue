@@ -64,7 +64,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
+          <el-button type="primary" @click="addUser">确 定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -85,7 +85,7 @@ export default {
     // 校验手机号
     var checkMobile = (rule, value, cb) => {
       const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
-      if(regMobile.test(value)) {
+      if (regMobile.test(value)) {
         return cb();
       }
       cb(new Error('请输入合法手机号'))
@@ -136,11 +136,11 @@ export default {
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { validator: checkEmail, trigger: 'blur'}
+          { validator: checkEmail, trigger: 'blur' }
         ],
         mobile: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { validator: checkMobile, trigger: 'blur'}
+          { validator: checkMobile, trigger: 'blur' }
         ]
       }
     }
@@ -167,6 +167,15 @@ export default {
     },
     addDialogClosed() {
       this.$refs.addFormRef.resetFields();
+    },
+    addUser() {
+      this.$refs.addFormRef.validate(valid => {
+        if (!valid) return;
+        // todo 添加用户
+        console.log(JSON.stringify(this.addUserFormData));
+        this.addDialogVisible = false;
+        this.getUserList();
+      });
     }
   }
 }
