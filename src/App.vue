@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <router-view />
-    <div class="beian">
+    <!-- <div class="beian">
       <a target="_blank" style="color: #5c6b77" href="http://www.beian.miit.gov.cn">陕ICP备2020017210号-1</a>&nbsp;
-    </div>
+    </div> -->
   </div>
 </template>
 

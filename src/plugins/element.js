@@ -8,6 +8,7 @@ import {
   Container,
   Header,
   Aside,
+  Footer,
   Main,
   Menu,
   MenuItem,
@@ -36,6 +37,7 @@ Vue.component(Message.name, Message)
 Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
+Vue.use(Footer)
 Vue.use(Main)
 Vue.use(Menu)
 Vue.use(MenuItem)

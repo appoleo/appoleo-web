@@ -1,19 +1,39 @@
 <template>
   <div class="login_container">
-    <div class="login_box">
-      <!-- 登录表单区 -->
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
-        <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
-        </el-form-item>
-        <el-form-item class="btns">
-          <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="resetLoginForm">重置</el-button>
-        </el-form-item>
-      </el-form>
+    <div>
+      <div class="login_box">
+        <!-- 登录表单区 -->
+        <el-form
+          ref="loginFormRef"
+          :model="loginForm"
+          :rules="loginFormRules"
+          label-width="0px"
+          class="login_form"
+        >
+          <el-form-item prop="username">
+            <el-input
+              v-model="loginForm.username"
+              prefix-icon="el-icon-user-solid"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              v-model="loginForm.password"
+              type="password"
+              prefix-icon="el-icon-lock"
+            ></el-input>
+          </el-form-item>
+          <el-form-item class="btns">
+            <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="info" @click="resetLoginForm">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    </div>
+    <div class="beian">
+      <a target="_blank" style="color: #5c6b77" href="https://beian.miit.gov.cn"
+        >互联网ICP备案：陕ICP备2020017210号-1</a
+      >&nbsp;
     </div>
   </div>
 </template>
@@ -49,7 +69,10 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         // await this.$http.post('login', this.loginForm);
-        if (this.loginForm.username === 'admin' && this.loginForm.password === '123456') {
+        if (
+          this.loginForm.username === 'admin' &&
+          this.loginForm.password === '123456'
+        ) {
           this.$message.success('登陆成功')
           window.sessionStorage.setItem('token', '99999')
           this.$router.push('/home')
@@ -87,5 +110,8 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
+}
+.beian {
+  bottom: 0px;
 }
 </style>
